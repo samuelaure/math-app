@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import StandardUI from '../components/sandbox/StandardUI';
 import GuessOperatorUI from '../components/sandbox/GuessOperatorUI';
 import VerticalMathUI from '../components/sandbox/VerticalMathUI';
+import VerticalStepUI from '../components/sandbox/VerticalStepUI';
 import CompositeUI from '../components/sandbox/CompositeUI';
 import '../styles/theme.css';
 
@@ -41,7 +42,11 @@ export default function Play() {
 
     switch (problem.type) {
       case 'guess_operator': return <GuessOperatorUI {...props} />;
-      case 'vertical': return <VerticalMathUI {...props} />;
+      case 'vertical': 
+        if (problem.payload.renderMode === 'algorithm') {
+          return <VerticalStepUI {...props} />;
+        }
+        return <VerticalMathUI {...props} />;
       case 'composite': return <CompositeUI {...props} />;
       case 'standard':
       default:
