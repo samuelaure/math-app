@@ -77,6 +77,29 @@
   color: var(--color-primary);
 }
 
+/* Operator Highlighting (Phase 6) */
+.operator-block {
+  display: inline-block;
+  font-weight: 900;
+  margin: 0 1.5rem;
+  font-size: 5.5rem; /* Levemente mayor que los números para protagonismo */
+}
+
+.operator-block.op-add {
+  color: #2E7D32;
+  text-shadow: 0px 0px 2px #2E7D32; /* Engrosa aún más el trazo nativamente */
+}
+
+.operator-block.op-sub {
+  color: #C62828;
+  text-shadow: 0px 0px 2px #C62828;
+}
+
+.vertical-equation .operator-block {
+  margin: 0;
+  font-size: 6rem;
+}
+
 /* Composite overrides */
 .equation.composite {
   padding: 3rem 2rem;
