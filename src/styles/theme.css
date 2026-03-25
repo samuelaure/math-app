@@ -1,0 +1,67 @@
+:root {
+  --color-bg-primary: #FDFBF7;
+  --color-bg-secondary: #F0F4E6;
+  --color-text-main: #4A4A4A;
+  --color-primary: #86A789;
+  --color-secondary: #B2C8BA;
+  --color-accent: #E1F0DA;
+  --font-family-main: 'Inter', system-ui, -apple-system, sans-serif;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family-main);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-main);
+  box-sizing: border-box;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 3rem;
+  color: var(--color-primary);
+  margin-bottom: 2rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.btn {
+  padding: 1rem 2rem;
+  font-size: 1.25rem;
+  text-decoration: none;
+  border-radius: 12px;
+  background-color: var(--color-primary);
+  color: white;
+  transition: var(--transition-smooth);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  font-weight: 600;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  background-color: var(--color-secondary);
+}
+
+.btn.secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+
+.btn.secondary:hover {
+  background-color: var(--color-accent);
+}
