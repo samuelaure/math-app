@@ -65,3 +65,103 @@
   color: var(--color-primary);
   margin-left: 2rem;
 }
+
+/* Phase 8 Bank Constructor */
+.vertical-equation-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8rem;
+  width: 100%;
+}
+
+.vertical-equation {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.vertical-input-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.vertical-input-row .answer-input {
+  width: 250px; /* Tamaño blindado para evitar saltos al crecer el número */
+}
+
+.bank-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+  justify-content: center;
+  background: white;
+  padding: 3rem;
+  border-radius: 30px;
+  box-shadow: 0 10px 40px rgba(134, 167, 137, 0.15);
+}
+
+.bank-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.bank-title {
+  font-weight: 800;
+  color: var(--color-primary);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.bank-piece {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  font-weight: 900;
+  color: white;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  cursor: grab;
+  user-select: none;
+  border: 3px solid rgba(255,255,255,0.3);
+  transition: transform 0.1s;
+}
+
+.bank-piece:active {
+  cursor: grabbing;
+}
+
+.bank-piece.cube { width: 90px; height: 90px; background-color: #FFB74D; font-size: 2.2rem; }
+.bank-piece.square { width: 80px; height: 80px; background-color: #FF8A65; font-size: 2rem; }
+.bank-piece.bar { width: 70px; height: 70px; background-color: #4DB6AC; font-size: 1.8rem; }
+.bank-piece.unit { width: 60px; height: 60px; background-color: #AED581; font-size: 1.6rem; }
+
+.undo-btn {
+  background: transparent;
+  color: #D87A7A;
+  border: 2px solid #FFB3B3;
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.undo-btn:hover {
+  background: rgba(255, 179, 179, 0.1);
+  transform: translateY(-2px);
+}
+.undo-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
