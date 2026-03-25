@@ -2,6 +2,10 @@ import { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGameLoop } from '../hooks/useGameLoop';
 import { Link } from 'react-router-dom';
+import StandardUI from '../components/sandbox/StandardUI';
+import GuessOperatorUI from '../components/sandbox/GuessOperatorUI';
+import VerticalMathUI from '../components/sandbox/VerticalMathUI';
+import CompositeUI from '../components/sandbox/CompositeUI';
 import '../styles/theme.css'; 
 
 export default function Play() {
@@ -22,6 +26,28 @@ export default function Play() {
 
   const showWhisper = timeWaiting > 10 && status === 'idle';
 
+  const renderSandbox = () => {
+    const props = {
+      payload: problem.payload, 
+      userAnswer, 
+      setUserAnswer, 
+      submitAnswer, 
+      status, 
+      inputRef, 
+      handleKeyDown, 
+      showWhisper
+    };
+
+    switch (problem.type) {
+      case 'guess_operator': return <GuessOperatorUI {...props} />;
+      case 'vertical': return <VerticalMathUI {...props} />;
+      case 'composite': return <CompositeUI {...props} />;
+      case 'standard':
+      default:
+        return <StandardUI {...props} />;
+    }
+  };
+
   return (
     <div className="play-container">
       <div className="top-bar">
@@ -36,32 +62,9 @@ export default function Play() {
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 20, opacity: 0 }}
-            className="equation"
+            style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
           >
-            <span className="number">{problem.payload?.num1}</span>
-            <span className="operator">{problem.payload?.operation}</span>
-            <span className="number">{problem.payload?.num2}</span>
-            <span className="operator">=</span>
-            
-            <div className="input-wrapper">
-               <input
-                ref={inputRef}
-                autoFocus
-                type="number"
-                value={userAnswer}
-                onChange={(e) => setUserAnswer(e.target.value)}
-                onKeyDown={handleKeyDown}
-                disabled={status === 'correct' || status === 'incorrect'}
-                className={`answer-input ${status}`}
-              />
-              {showWhisper && (
-                <motion.div 
-                  className="whisper-glow"
-                  animate={{ opacity: [0, 0.4, 0] }}
-                  transition={{ repeat: Infinity, duration: 2 }}
-                />
-              )}
-            </div>
+            {renderSandbox()}
           </motion.div>
         </AnimatePresence>
 
@@ -79,13 +82,15 @@ export default function Play() {
         </div>
         
         <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-          <button 
-            className="btn commit-btn" 
-            onClick={submitAnswer}
-            disabled={status !== 'idle' || userAnswer === ''}
-          >
-            Enviar
-          </button>
+          {problem.type !== 'guess_operator' && (
+            <button 
+              className="btn commit-btn" 
+              onClick={() => submitAnswer()}
+              disabled={status !== 'idle' || userAnswer === ''}
+            >
+              Enviar
+            </button>
+          )}
           
           {attempts >= 2 && status !== 'correct' && (
             <motion.button 
