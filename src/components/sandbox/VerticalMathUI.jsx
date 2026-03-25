@@ -10,7 +10,9 @@ export default function VerticalMathUI({ payload, userAnswer, setUserAnswer, sta
            <span className="number">{payload.num1}</span>
         </div>
         <div className="vertical-row bottom">
-           <span className="operator">{payload.operation}</span>
+           <span className={`operator-block ${payload.operation === '+' ? 'op-add' : 'op-sub'}`}>
+             {payload.operation}
+           </span>
            <span className="number">{payload.num2}</span>
         </div>
         <div className="divider-line"></div>
@@ -45,7 +47,9 @@ export default function VerticalMathUI({ payload, userAnswer, setUserAnswer, sta
           animate={{ opacity: 1, x: 0 }}
         >
            <Base10Visualizer amount={payload.num1} />
-           <div className="visualizer-operator">{payload.operation}</div>
+           <div className={`operator-block ${payload.operation === '+' ? 'op-add' : 'op-sub'}`}>
+             {payload.operation}
+           </div>
            <Base10Visualizer amount={payload.num2} />
         </motion.div>
       )}
