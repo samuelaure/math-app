@@ -47,7 +47,7 @@ export default function Dashboard() {
           <div className="override-controls">
             <label style={{display: 'block', marginBottom: '0.5rem'}}>Forzar Nivel Manualmente:</label>
             <div className="level-buttons">
-              {[null, 1, 2, 3, 4, 5].map(lvl => (
+              {[null, ...Array.from({length: 15}, (_, i) => i + 1)].map(lvl => (
                 <button 
                   key={lvl || 'auto'}
                   className={`btn small ${progress.manualOverride === lvl ? '' : 'secondary'}`}
