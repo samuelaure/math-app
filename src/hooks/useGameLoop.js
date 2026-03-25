@@ -4,9 +4,9 @@ import { useProgress } from './useProgress';
 
 export const useGameLoop = () => {
   const { progress, addSeed, recordAnswer } = useProgress();
-  const [problem, setProblem] = useState(() => generateProblem(progress.level));
+  const [problem, setProblem] = useState(() => generateProblem(progress.manualOverride || progress.level));
   const [userAnswer, setUserAnswer] = useState('');
-  const [status, setStatus] = useState('idle'); // 'idle', 'correct', 'incorrect'
+  const [status, setStatus] = useState('idle'); 
   const [timeWaiting, setTimeWaiting] = useState(0);
 
   useEffect(() => {
@@ -32,13 +32,14 @@ export const useGameLoop = () => {
     recordAnswer(isCorrect, nextLevel);
 
     setTimeout(() => {
-      setProblem(generateProblem(nextLevel));
+      const levelToUse = progress.manualOverride || nextLevel;
+      setProblem(generateProblem(levelToUse));
       setUserAnswer('');
       setStatus('idle');
       setTimeWaiting(0);
     }, 1500); 
     
-  }, [userAnswer, problem.answer, progress.level, progress.history, addSeed, recordAnswer]);
+  }, [userAnswer, problem.answer, progress.level, progress.history, addSeed, recordAnswer, progress.manualOverride]);
 
   return { problem, userAnswer, setUserAnswer, submitAnswer, status, timeWaiting, progress };
 };

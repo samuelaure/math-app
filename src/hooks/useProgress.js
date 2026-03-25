@@ -9,7 +9,9 @@ export const useProgress = () => {
     return {
       level: 1,
       seeds: 0,
-      history: []
+      history: [],
+      stats: { total: 0, correct: 0 },
+      manualOverride: null 
     };
   });
 
@@ -23,15 +25,28 @@ export const useProgress = () => {
 
   const recordAnswer = (isCorrect, newLevel) => {
     setProgress(prev => {
-      // Keep only last 5 answers for calculation
       const updatedHistory = [...prev.history, isCorrect].slice(-5);
+      const total = prev.stats?.total || 0;
+      const correct = prev.stats?.correct || 0;
       return {
         ...prev,
-        level: newLevel,
-        history: updatedHistory
+        level: prev.manualOverride ? prev.manualOverride : newLevel,
+        history: updatedHistory,
+        stats: {
+          total: total + 1,
+          correct: correct + (isCorrect ? 1 : 0)
+        }
       };
     });
   };
 
-  return { progress, addSeed, recordAnswer };
+  const setManualOverride = (level) => {
+    setProgress(prev => ({
+      ...prev,
+      manualOverride: level,
+      level: level || prev.level
+    }));
+  };
+
+  return { progress, addSeed, recordAnswer, setManualOverride };
 };
