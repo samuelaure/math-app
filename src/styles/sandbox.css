@@ -129,6 +129,124 @@
   font-size: 6rem;
 }
 
+/* Phase 9 Step Algorithm */
+.vertical-step-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.vertical-step-grid {
+  display: flex;
+  gap: 2rem;
+  padding: 3rem 5rem 3rem 6rem;
+  background: white;
+  border-radius: 30px;
+  box-shadow: 0 10px 40px rgba(134, 167, 137, 0.15);
+}
+
+.step-col {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: right;
+  position: relative;
+}
+
+.step-carry {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carry-marker {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #D87A7A;
+  background: #FFF0F0;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(216, 122, 122, 0.2);
+}
+
+.step-cell {
+  font-size: 5.5rem;
+  font-weight: 700;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: var(--color-text-main);
+  position: relative;
+}
+
+.bottom-cell {
+  border-bottom: 6px solid var(--color-text-main);
+  padding-bottom: 20px;
+}
+
+.step-op {
+  position: absolute;
+  left: -80px;
+  bottom: 10px;
+  font-size: 5.5rem;
+  color: #2E7D32;
+  font-weight: 900;
+  text-shadow: 0px 0px 2px #2E7D32;
+}
+
+.step-input-cell {
+  margin-top: 20px;
+}
+
+.step-input {
+  width: 90px;
+  height: 100px;
+  font-size: 4.5rem;
+  font-weight: 800;
+  text-align: center;
+  border: 4px solid var(--color-secondary);
+  border-radius: 16px;
+  background: var(--color-bg-primary);
+  color: var(--color-text-main);
+  outline: none;
+  transition: all 0.2s;
+}
+
+.step-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 6px rgba(134, 167, 137, 0.2);
+}
+
+.step-input.correct {
+  border-color: #A3D8A3 !important;
+  background-color: #F0FFF0 !important;
+  color: #4A9A4A !important;
+}
+
+.step-input.incorrect {
+  border-color: #FFB3B3 !important;
+  background-color: #FFF0F0 !important;
+  color: #D87A7A !important;
+}
+
+.step-submit {
+  margin-top: 3rem;
+}
+
+/* Esconder flechas nativas del number */
+.step-input::-webkit-outer-spin-button,
+.step-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 /* Composite overrides */
 .equation.composite {
   padding: 3rem 2rem;
