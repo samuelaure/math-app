@@ -35,7 +35,8 @@ export default function Play() {
       status, 
       inputRef, 
       handleKeyDown, 
-      showWhisper
+      showWhisper,
+      attempts
     };
 
     switch (problem.type) {
