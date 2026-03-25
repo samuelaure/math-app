@@ -8,7 +8,12 @@ export default function CompositeUI({ payload, userAnswer, setUserAnswer, status
         <span key={`n${i}`} className="number">{num}</span>
       )).reduce((acc, x, i) => {
         if (i === 0) return [x];
-        acc.push(<span key={`o${i}`} className="operator">{payload.ops[i-1]}</span>);
+        const op = payload.ops[i-1];
+        acc.push(
+          <span key={`o${i}`} className={`operator-block ${op === '+' ? 'op-add' : 'op-sub'}`}>
+            {op}
+          </span>
+        );
         acc.push(x);
         return acc;
       }, [])}
