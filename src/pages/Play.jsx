@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import '../styles/theme.css'; 
 
 export default function Play() {
-  const { problem, userAnswer, setUserAnswer, submitAnswer, status, timeWaiting, progress } = useGameLoop();
+  const { problem, userAnswer, setUserAnswer, submitAnswer, status, timeWaiting, progress, attempts, skipProblem } = useGameLoop();
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -25,8 +25,8 @@ export default function Play() {
   return (
     <div className="play-container">
       <div className="top-bar">
-        <Link to="/" className="btn secondary small">← Back</Link>
-        <div className="seeds-badge">🌱 Seeds: {progress.seeds}</div>
+        <Link to="/" className="btn secondary small">← Inicio</Link>
+        <div className="seeds-badge">🌱 Semillas: {progress.seeds}</div>
       </div>
 
       <main className="game-area">
@@ -46,11 +46,12 @@ export default function Play() {
             <div className="input-wrapper">
                <input
                 ref={inputRef}
+                autoFocus
                 type="number"
                 value={userAnswer}
                 onChange={(e) => setUserAnswer(e.target.value)}
                 onKeyDown={handleKeyDown}
-                disabled={status !== 'idle'}
+                disabled={status === 'correct' || status === 'incorrect'}
                 className={`answer-input ${status}`}
               />
               {showWhisper && (
@@ -77,13 +78,26 @@ export default function Play() {
           )}
         </div>
         
-        <button 
-          className="btn commit-btn" 
-          onClick={submitAnswer}
-          disabled={status !== 'idle' || userAnswer === ''}
-        >
-          Empezar
-        </button>
+        <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+          <button 
+            className="btn commit-btn" 
+            onClick={submitAnswer}
+            disabled={status !== 'idle' || userAnswer === ''}
+          >
+            Enviar
+          </button>
+          
+          {attempts >= 2 && status !== 'correct' && (
+            <motion.button 
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="btn secondary commit-btn" 
+              onClick={skipProblem}
+            >
+              Saltar
+            </motion.button>
+          )}
+        </div>
       </main>
     </div>
   );
