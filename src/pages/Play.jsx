@@ -32,15 +32,15 @@ export default function Play() {
       <main className="game-area">
         <AnimatePresence mode="wait">
           <motion.div 
-            key={`${problem.num1}-${problem.operation}-${problem.num2}`}
+            key={problem.id}
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 20, opacity: 0 }}
             className="equation"
           >
-            <span className="number">{problem.num1}</span>
-            <span className="operator">{problem.operation}</span>
-            <span className="number">{problem.num2}</span>
+            <span className="number">{problem.payload?.num1}</span>
+            <span className="operator">{problem.payload?.operation}</span>
+            <span className="number">{problem.payload?.num2}</span>
             <span className="operator">=</span>
             
             <div className="input-wrapper">
