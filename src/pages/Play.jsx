@@ -6,7 +6,7 @@ import StandardUI from '../components/sandbox/StandardUI';
 import GuessOperatorUI from '../components/sandbox/GuessOperatorUI';
 import VerticalMathUI from '../components/sandbox/VerticalMathUI';
 import CompositeUI from '../components/sandbox/CompositeUI';
-import '../styles/theme.css'; 
+import '../styles/theme.css';
 
 export default function Play() {
   const { problem, userAnswer, setUserAnswer, submitAnswer, status, timeWaiting, progress, attempts, skipProblem } = useGameLoop();
@@ -28,13 +28,13 @@ export default function Play() {
 
   const renderSandbox = () => {
     const props = {
-      payload: problem.payload, 
-      userAnswer, 
-      setUserAnswer, 
-      submitAnswer, 
-      status, 
-      inputRef, 
-      handleKeyDown, 
+      payload: problem.payload,
+      userAnswer,
+      setUserAnswer,
+      submitAnswer,
+      status,
+      inputRef,
+      handleKeyDown,
       showWhisper,
       attempts
     };
@@ -58,7 +58,7 @@ export default function Play() {
 
       <main className="game-area">
         <AnimatePresence mode="wait">
-          <motion.div 
+          <motion.div
             key={problem.id}
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -71,33 +71,33 @@ export default function Play() {
 
         <div className="status-feedback">
           {status === 'correct' && (
-             <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="feedback correct">
-                ✨ ¡Correcto!
-             </motion.div>
+            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="feedback correct">
+              ✨ ¡Correcto!
+            </motion.div>
           )}
           {status === 'incorrect' && (
-             <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="feedback incorrect">
-                Intenta de nuevo...
-             </motion.div>
+            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="feedback incorrect">
+              Intenta de nuevo...
+            </motion.div>
           )}
         </div>
-        
+
         <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
           {problem.type !== 'guess_operator' && (
-            <button 
-              className="btn commit-btn" 
+            <button
+              className="btn commit-btn"
               onClick={() => submitAnswer()}
               disabled={status !== 'idle' || userAnswer === ''}
             >
               Enviar
             </button>
           )}
-          
+
           {attempts >= 2 && status !== 'correct' && (
-            <motion.button 
+            <motion.button
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="btn secondary commit-btn" 
+              className="btn secondary commit-btn"
               onClick={skipProblem}
             >
               Saltar
