@@ -33,44 +33,73 @@
   width: 300px;
 }
 
-/* Guess Operator */
-.operator-dropzone {
+/* Guess Operator (Drag & Drop Phase 7) */
+.guess-operator-wrapper {
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
   align-items: center;
-  position: relative;
+  gap: 4rem;
+  width: 100%;
 }
 
-.op-btn {
-  width: 100px;
-  height: 100px;
-  font-size: 4rem;
-  font-weight: 700;
+.dropzone-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
   border-radius: 20px;
-  background-color: var(--color-bg-secondary);
-  border: 4px dashed var(--color-secondary);
-  color: var(--color-primary);
-  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.4);
+  border: 6px dashed var(--color-secondary);
+  color: var(--color-secondary);
+  font-size: 5rem;
+  font-weight: bold;
+  position: relative;
   transition: var(--transition-smooth);
 }
 
-.op-btn:hover:not(:disabled) {
-  background-color: var(--color-accent);
-  transform: scale(1.05);
-}
-
-.op-btn.correct {
+.dropzone-slot.correct {
   background-color: #F0FFF0;
   border-color: #A3D8A3;
   color: #4A9A4A;
   border-style: solid;
 }
 
-.op-btn.incorrect {
+.dropzone-slot.incorrect {
   background-color: #FFF0F0;
   border-color: #FFB3B3;
   color: #D87A7A;
   border-style: solid;
+}
+
+.toolbox-operator-row {
+  display: flex;
+  gap: 3rem;
+  padding: 1.5rem 3rem;
+  background: white;
+  border-radius: 40px;
+  box-shadow: 0 10px 40px rgba(134, 167, 137, 0.15);
+}
+
+.toolbox-item {
+  cursor: grab;
+  user-select: none;
+  z-index: 10;
+}
+.toolbox-item:active {
+  cursor: grabbing;
+}
+.toolbox-item.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.operator-block.ghost {
+  opacity: 0.1;
+  pointer-events: none;
+  color: var(--color-text-main);
+  text-shadow: none;
 }
 
 .highlight {
