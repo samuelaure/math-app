@@ -36,7 +36,8 @@ export const generateProblem = (level) => {
       num2 = isSubtraction ? rand(10, num1 - 1) : rand(100, 899);
     }
     const answer = operation === '+' ? num1 + num2 : num1 - num2;
-    return { id, type: 'vertical', payload: { num1, num2, operation }, answer, level };
+    const renderMode = operation === '+' ? (Math.random() > 0.5 ? 'tactile' : 'algorithm') : 'standard';
+    return { id, type: 'vertical', payload: { num1, num2, operation, renderMode }, answer, level };
   }
 
   if (level >= 11) {
