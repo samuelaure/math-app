@@ -4,7 +4,9 @@ export default function StandardUI({ payload, userAnswer, setUserAnswer, status,
   return (
     <div className="equation">
       <span className="number">{payload.num1}</span>
-      <span className="operator">{payload.operation}</span>
+      <span className={`operator-block ${payload.operation === '+' ? 'op-add' : 'op-sub'}`}>
+        {payload.operation}
+      </span>
       <span className="number">{payload.num2}</span>
       <span className="operator">=</span>
       
