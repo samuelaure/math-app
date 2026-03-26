@@ -1,20 +1,20 @@
 import { useState, useEffect, useCallback } from 'react';
-import { generateProblem, calculateNextLevel } from '../utils/mathEngine';
+import { generateProblem } from '../utils/mathEngine';
 import { useProgress } from './useProgress';
 
 export const useGameLoop = () => {
-  const { progress, addSeed, recordAnswer } = useProgress();
+  const { progress, progressData, currentLvl, addSeed, recordAnswer } = useProgress();
   const [problem, setProblem] = useState(() => generateProblem(progress.manualOverride || progress.level));
   const [userAnswer, setUserAnswer] = useState('');
-  const [status, setStatus] = useState('idle'); 
+  const [status, setStatus] = useState('idle');
   const [timeWaiting, setTimeWaiting] = useState(0);
   const [attempts, setAttempts] = useState(0);
 
   useEffect(() => {
     if (status === 'incorrect') {
-       setStatus('idle');
+      setStatus('idle');
     }
-  }, [userAnswer]); 
+  }, [userAnswer]);
 
   useEffect(() => {
     if (status === 'idle') {
@@ -26,54 +26,59 @@ export const useGameLoop = () => {
   const submitAnswer = useCallback((customAnswer) => {
     const evalAnswer = customAnswer !== undefined ? customAnswer : userAnswer;
     if (evalAnswer === '') return;
-    if (status === 'correct') return; 
-    
+    if (status === 'correct') return;
+
     let isCorrect = false;
     if (typeof problem.answer === 'string') {
       isCorrect = String(evalAnswer).trim() === problem.answer;
     } else {
       isCorrect = parseInt(evalAnswer, 10) === problem.answer;
     }
-    
+
     if (isCorrect) {
       setStatus('correct');
-      const relevantHistory = [...progress.history, isCorrect].slice(-3);
-      const nextLevel = calculateNextLevel(progress.level, relevantHistory);
-
+      // Pass the level of the problem (not necessarily currentLvl) for correct scoring
       addSeed();
-      recordAnswer(isCorrect, nextLevel);
+      recordAnswer(true, problem.level);
 
       setTimeout(() => {
-        const levelToUse = progress.manualOverride || nextLevel;
-        setProblem(generateProblem(levelToUse));
+        setProblem(generateProblem(progress.manualOverride || currentLvl));
         setUserAnswer('');
         setStatus('idle');
         setTimeWaiting(0);
-        setAttempts(0); 
-      }, 1500); 
+        setAttempts(0);
+      }, 1500);
     } else {
-       setStatus('incorrect');
-       setAttempts(a => a + 1);
-       setTimeout(() => {
-         setUserAnswer('');
-         setStatus('idle');
-       }, 1000);
+      setStatus('incorrect');
+      setAttempts(a => a + 1);
+      recordAnswer(false, problem.level);
+      setTimeout(() => {
+        setUserAnswer('');
+        setStatus('idle');
+      }, 1000);
     }
-    
-  }, [userAnswer, problem.answer, progress.level, progress.history, addSeed, recordAnswer, progress.manualOverride, status]);
+  }, [userAnswer, problem.answer, problem.level, currentLvl, progress.manualOverride, addSeed, recordAnswer, status]);
 
   const skipProblem = useCallback(() => {
-    const relevantHistory = [...progress.history, false].slice(-3);
-    const nextLevel = calculateNextLevel(progress.level, relevantHistory);
-    recordAnswer(false, nextLevel);
-
-    const levelToUse = progress.manualOverride || nextLevel;
-    setProblem(generateProblem(levelToUse));
+    recordAnswer(false, problem.level);
+    setProblem(generateProblem(progress.manualOverride || currentLvl));
     setUserAnswer('');
     setStatus('idle');
     setTimeWaiting(0);
     setAttempts(0);
-  }, [progress.level, progress.history, recordAnswer, progress.manualOverride]);
+  }, [problem.level, currentLvl, progress.manualOverride, recordAnswer]);
 
-  return { problem, userAnswer, setUserAnswer, submitAnswer, status, timeWaiting, progress, attempts, skipProblem };
+  return {
+    problem,
+    userAnswer,
+    setUserAnswer,
+    submitAnswer,
+    status,
+    timeWaiting,
+    progress,
+    progressData,
+    currentLvl,
+    attempts,
+    skipProblem,
+  };
 };
