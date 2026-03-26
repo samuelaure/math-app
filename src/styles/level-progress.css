@@ -1,0 +1,81 @@
+/* ── Level Progress Bar ─────────────────────────────────────────────────────── */
+
+.level-progress-root {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  width: 100%;
+  max-width: 480px;
+}
+
+.level-progress-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.level-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.9;
+}
+
+.level-label.next {
+  opacity: 0.65;
+}
+
+.seeds-count {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #86A789;
+  background: rgba(134, 167, 137, 0.12);
+  padding: 0.15rem 0.7rem;
+  border-radius: 20px;
+  border: 1.5px solid rgba(134, 167, 137, 0.25);
+  line-height: 1.6;
+}
+
+.level-progress-track {
+  position: relative;
+  width: 100%;
+  height: 12px;
+  background: rgba(0, 0, 0, 0.07);
+  border-radius: 99px;
+  overflow: visible;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.level-progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 99px;
+  min-width: 0%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.level-progress-glow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 0 0 8px 3px currentColor;
+  z-index: 2;
+}
+
+.level-progress-pts {
+  text-align: right;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #9aaa9d;
+  letter-spacing: 0.03em;
+}

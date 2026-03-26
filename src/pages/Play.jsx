@@ -7,10 +7,11 @@ import GuessOperatorUI from '../components/sandbox/GuessOperatorUI';
 import VerticalMathUI from '../components/sandbox/VerticalMathUI';
 import VerticalStepUI from '../components/sandbox/VerticalStepUI';
 import CompositeUI from '../components/sandbox/CompositeUI';
+import LevelProgressBar from '../components/ui/LevelProgressBar';
 import '../styles/theme.css';
 
 export default function Play() {
-  const { problem, userAnswer, setUserAnswer, submitAnswer, status, timeWaiting, progress, attempts, skipProblem } = useGameLoop();
+  const { problem, userAnswer, setUserAnswer, submitAnswer, status, timeWaiting, progress, progressData, currentLvl, attempts, skipProblem } = useGameLoop();
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -58,7 +59,11 @@ export default function Play() {
     <div className="play-container">
       <div className="top-bar">
         <Link to="/" className="btn secondary small">← Inicio</Link>
-        <div className="seeds-badge">🌱 Semillas: {progress.seeds}</div>
+        <LevelProgressBar
+          currentLevel={currentLvl}
+          progressData={progressData}
+          seeds={progress.seeds}
+        />
       </div>
 
       <main className="game-area">
